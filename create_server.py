@@ -2,10 +2,22 @@ import webbrowser
 import http.server
 import socketserver
 import os
+import signal
+import sys
 
 PORT = 8000
-
 Handler = http.server.SimpleHTTPRequestHandler
+
+# Define a signal handler function
+def signal_handler(signum, frame):
+    print('Signal received, stopping server...')
+    httpd.server_close()
+    print("Server stopped.")
+    sys.exit(0)
+
+# Register signal handler for SIGINT and SIGTERM
+signal.signal(signal.SIGINT, signal_handler)
+signal.signal(signal.SIGTERM, signal_handler)
 
 # Check if Python is installed by attempting to import a standard library module
 try:
@@ -23,5 +35,6 @@ with socketserver.TCPServer(("", PORT), Handler) as httpd:
         httpd.serve_forever()
     except KeyboardInterrupt:
         pass
-    httpd.server_close()
-    print("Server stopped.")
+    finally:
+        httpd.server_close()
+        print("Server stopped.")
