@@ -1,6 +1,5 @@
 // script.js
 const unlockTable = {
-  const unlockTable = {
   "00": [null, "0661", "0348", "9354", "1220", "3214", "6966", "9011", "4636", "4782", "", "", "", ""],
   "01": ["2393", "8220", "5071", "7914", "4588", "5896", "6610", "0160", "0628", "5967", "", "", "", ""],
   "02": ["5879", "5484", "1885", "4404", "7611", "5139", "5060", "2789", "4027", "0720", "", "", "", ""],
@@ -34,7 +33,7 @@ function getUnlockCode(code) {
   const thirdDigit = parseInt(code[2], 10);
 
   // Lookup the unlock code with error handling
-  const possibleCodes = unlockCodeMap[firstTwoDigits]; 
+  const possibleCodes = unlockTable[firstTwoDigits]; 
   if (possibleCodes && possibleCodes[thirdDigit]) {
     return possibleCodes[thirdDigit];
   } else {
